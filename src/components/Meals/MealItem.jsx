@@ -15,8 +15,10 @@ let MealItem = (props)=>{
                 {price}
             </div>
             </div>
+            <div>
+                <MealItemForm/>
+            </div>
         </li>
-        <MealItemForm/>
         </>
     )
 }
