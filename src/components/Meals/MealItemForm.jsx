@@ -1,5 +1,6 @@
 import React,{useRef} from "react"
 import Classes from './MealIteamForm.module.css'
+import Input from "../UI/Input"
 
 let MealItemForm = ()=>{
 
@@ -9,14 +10,15 @@ let formListener = (event)=>{
     console.log(amountRef.current.value)
 }
 
+let amountRef = useRef(10)
 
-let amountRef = useRef()
     return(
         <>
         <div className={Classes.form}>
         <form onSubmit={formListener} >
-            <input type="text" ref={amountRef}/>
-            <button> +Add </button>
+            {/* <input type="text" ref={amountRef}/> */}
+            <Input/>
+            <button>+ Add</button>
         </form>
         </div>
         </>
