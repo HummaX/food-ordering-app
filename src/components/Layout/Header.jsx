@@ -12,7 +12,7 @@ return(
         <h1>
             ReactMeals
         </h1>
-        <HeaderCartButton/>
+        <HeaderCartButton show={props.show}/>
         </header>
 
         <div className={Classes['main-image']}>

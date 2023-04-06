@@ -2,22 +2,22 @@ import React,{useRef} from "react"
 import Classes from './MealIteamForm.module.css'
 import Input from "../UI/Input"
 
-let MealItemForm = ()=>{
+let MealItemForm = (props)=>{
 
+    let dataRef = useRef()
 
 let formListener = (event)=>{
     event.preventDefault()
-    console.log(amountRef.current.value)
+    console.log(dataRef.current.value)
+    props.onAddToCart(dataRef.current.value)
 }
-
-let amountRef = useRef(10)
 
     return(
         <>
         <div className={Classes.form}>
         <form onSubmit={formListener} >
             {/* <input type="text" ref={amountRef}/> */}
-            <Input/>
+            <Input input={{min: 1, type: 'number',value: 1}} dataRef={dataRef}/>
             <button>+ Add</button>
         </form>
         </div>
