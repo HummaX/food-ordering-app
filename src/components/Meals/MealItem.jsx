@@ -4,11 +4,12 @@ import classes from './MealItem.module.css'
 import MealItemForm from './MealItemForm'
 
 let MealItem = (props)=>{
-    let amountCtx = useContext(CartContext) 
 
-    let price = props.price.toFixed(2)
+    let amountCtx = useContext(CartContext) 
+    let price = props.price.toFixed(2) // to show only 2 digits after decimal
 
     let AddToCartHandler = (amount)=>{
+        console.log(amount,'amount')
 amountCtx.addItem({
     id:props.id,
     name:props.name,
@@ -16,6 +17,8 @@ amountCtx.addItem({
     price:props.price
 })
     }
+
+ 
     return(
         <>
         <li className={classes.meal}>

@@ -3,16 +3,16 @@ import classes from './Input.module.css'
 
 
 
-let Input = React.forwardRef((props,ref)=>{
+let Input = (props)=>{
 
 return(
     <>
    <div className={classes.input}>
     <label> Amount: </label>
-        <input type={props.input.type}  ref={props.dataRef}/>
+        <input type={props.input.type}  ref={props.Ref}/>
    </div>
     </>
 )
-})
+}
 
 export default Input

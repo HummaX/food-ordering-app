@@ -1,11 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import mealsImage from '../Assets/meals.jpg'
 import HeaderCartButton from "./HeaderCartButton"
 
 import Classes from './Header.module.css'
 
 export default function Header (props){
-
 return(
     <>
     <header className={Classes.header}>

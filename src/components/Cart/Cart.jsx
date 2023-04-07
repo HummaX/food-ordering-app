@@ -1,30 +1,38 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import CartContext from '../Store/Cart-Context'
 
 import classes from './Cart.module.css'
 import Modal from '../UI/Modal'
+import CartItem from './CartItem'
 
 let Cart = (props)=>{
-let cartItems = [{id: 'c1' ,name: 'Sushi', amount: 2}].map((items) => items.name)
-let totalAmount = 0
-let cartTotal = [{id: 'c1' ,name: 'Sushi', amount: 2},{id: 'c1' ,name: 'Sushi', amount: 2},{id: 'c1' ,name: 'Sushi', amount: 10}]
-.map((amount)=>{
-    return totalAmount += amount.amount
+
+let cartCtx = useContext(CartContext)
+
+let cartItemRemoveHandler = ()=>{}
+let cartItemAddHandler = ()=>{}
+
+let cartTotal = cartCtx.totalAmount.toFixed(2)
+let hasItems = cartCtx.items.length > 0
+
+let itemsDisplay = cartCtx.items.map((data)=>{
+  return <CartItem name={data.name} amount={data.amount} price={data.price} add={cartItemAddHandler} remove={cartItemRemoveHandler}/>
 })
 
 return(
     <>
     <Modal close={props.close}>
   <div className={classes['cart-items']}>
-     <ul>
-       {cartItems}
-       </ul>
-    </div>
+    <ul>
+      {itemsDisplay}
+    </ul>
+</div>
     <div className={classes.total}>
-       Total Amount: {totalAmount}
+       Total Amount: {cartTotal}
     </div>
     <div className={classes.actions}>
     <button className={classes['button--alt']}> Close </button>
-    <button className={classes.button}> Order </button>
+    {hasItems && <button className={classes.button}> Order </button>}
     </div>
     </Modal>
     </>

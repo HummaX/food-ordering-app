@@ -17,7 +17,7 @@ let formListener = (event)=>{
         <div className={Classes.form}>
         <form onSubmit={formListener} >
             {/* <input type="text" ref={amountRef}/> */}
-            <Input input={{min: 1, type: 'number',value: 1}} dataRef={dataRef}/>
+            <Input input={{min: 1, type: 'number',value: 1}} Ref={dataRef}/>
             <button>+ Add</button>
         </form>
         </div>

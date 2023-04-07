@@ -8,11 +8,19 @@ let HeaderCartButton =(props)=>{
      props.show(true)
     }
 
+  // this will return unDefined because in provider we have given different values, which not defined yet
+
   let cartCtx = useContext(CartContext)
-  let cartItemNumber = cartCtx.items.reduce((currentNumber, Item)=>{
-    return currentNumber + Item.amount;
-  },0);
-    
+  
+//   let cartItemNumber = cartCtx.items.reduce((currentNumber,Item)=>{
+//     // return currentNumber + Item.amount;
+//     return Item.amount + currentNumber
+//   },0);
+
+let numberValue =  cartCtx.items.length
+
+  console.log(numberValue,'total amount')
+
 return(
     <>
     <button className={classes.button} onClick={showCart}>
@@ -20,7 +28,7 @@ return(
             <CartIcon/>
         </span>
         <span> Your Cart </span>
-        <span className={classes.badge}> {1} </span>
+        <span className={classes.badge}> {numberValue} </span>
     </button>
     </>
 )
