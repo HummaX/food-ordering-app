@@ -16,7 +16,12 @@ let cartTotal = cartCtx.totalAmount.toFixed(2)
 let hasItems = cartCtx.items.length > 0
 
 let itemsDisplay = cartCtx.items.map((data)=>{
-  return <CartItem name={data.name} amount={data.amount} price={data.price} add={cartItemAddHandler} remove={cartItemRemoveHandler}/>
+  return <CartItem 
+  name={data.name} 
+  amount={data.amount} 
+  price={data.price} 
+  add={cartItemAddHandler.bind(null,data)} 
+  remove={cartItemRemoveHandler.bind(null,data.id)}/>
 })
 
 return(
