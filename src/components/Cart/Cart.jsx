@@ -7,10 +7,14 @@ import CartItem from './CartItem'
 
 let Cart = (props)=>{
 
+  let modalCloser=()=>{
+    props.close(true)
+  }
+
 let cartCtx = useContext(CartContext)
 
-let cartItemRemoveHandler = ()=>{}
-let cartItemAddHandler = ()=>{}
+let cartItemRemoveHandler = (id)=>{}
+let cartItemAddHandler = (item)=>{}
 
 let cartTotal = cartCtx.totalAmount.toFixed(2)
 let hasItems = cartCtx.items.length > 0
@@ -36,7 +40,7 @@ return(
        Total Amount: {cartTotal}
     </div>
     <div className={classes.actions}>
-    <button className={classes['button--alt']}> Close </button>
+    <button className={classes['button--alt']} onClick={modalCloser}> Close </button>
     {hasItems && <button className={classes.button}> Order </button>}
     </div>
     </Modal>

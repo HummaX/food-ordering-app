@@ -16,8 +16,7 @@ amountCtx.addItem({
     amount:amount,
     price:props.price
 })
-    }
-
+}
  
     return(
         <>

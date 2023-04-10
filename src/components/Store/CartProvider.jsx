@@ -7,12 +7,29 @@ let defaultCartState = {
 };
 
 let cartReducer = (state,action)=>{
+
     if(action.type === 'ADD'){
-        let updateItem = state.items.concat(action.item)
+        // let updateItem = state.items.concat(action.item)
         // Here we will not use push instead we will use concat because push will add new element to array while concat will merge two arrays into new array
         let updatedAmount = state.totalAmount + action.item.price * action.item.amount
+        let existingCartItems = state.items.findIndex((item)=> item.id === action.item.id )
+        let updatingExistingItem = state.items[existingCartItems]
+        
+        let updatedItems
+
+        if(updatingExistingItem){
+            let updatedItem={
+        ...updatingExistingItem,
+        amount: updatingExistingItem.amount + action.item.amount
+            }
+            updatedItems = [...state.items]
+            updatedItems[updatingExistingItem] = updatedItem
+        }
+        else{
+            updatedItems = state.items.concat(action.item) // this is updateItem
+        }
         return{
-            items: updateItem,
+            items: updatedItems,
 totalAmount: updatedAmount
         }
     }
@@ -27,6 +44,7 @@ let [cartState,dispatcher] = useReducer(cartReducer,defaultCartState)
 
     let cartItemRemover = (id) =>{
         dispatcher({type:'REMOVE',id:id})
+        console.log(id,'remover id')
     }
 
     let cartItemAdder = (item) =>{
