@@ -13,19 +13,23 @@ let Cart = (props)=>{
 
 let cartCtx = useContext(CartContext)
 
-let cartItemRemoveHandler = (id)=>{}
-let cartItemAddHandler = (item)=>{}
+let cartItemRemoveHandler = (id)=>{
+ cartCtx.removeItem(id)
+}
+let cartItemAddHandler = (item)=>{
+  cartCtx.addItem({...item, amount: 1})
+}
 
 let cartTotal = cartCtx.totalAmount.toFixed(2)
 let hasItems = cartCtx.items.length > 0
 
-let itemsDisplay = cartCtx.items.map((data)=>{
+let itemsDisplay = cartCtx.items.map((item)=>{
   return <CartItem 
-  name={data.name} 
-  amount={data.amount} 
-  price={data.price} 
-  add={cartItemAddHandler.bind(null,data)} 
-  remove={cartItemRemoveHandler.bind(null,data.id)}/>
+  name={item.name} 
+  amount={item.amount} 
+  price={item.price} 
+  add={cartItemAddHandler.bind(null,item)} 
+  remove={cartItemRemoveHandler.bind(null,item.id)}/>
 })
 
 return(

@@ -7,9 +7,12 @@ let MealItemForm = (props)=>{
     let dataRef = useRef()
 
 let formListener = (event)=>{
+    const enteredAmount = dataRef.current.value;
+    const enteredAmountNumber = +enteredAmount;
     event.preventDefault()
     console.log(dataRef.current.value)
-    props.onAddToCart(dataRef.current.value)
+    props.onAddToCart(enteredAmountNumber)
+    dataRef.current.value  = ''
 }
 
     return(

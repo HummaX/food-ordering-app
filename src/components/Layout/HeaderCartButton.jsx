@@ -12,9 +12,14 @@ let HeaderCartButton =(props)=>{
 
   let cartCtx = useContext(CartContext)
   
-  let cartItemNumber = cartCtx.items.reduce((currentNumber,Item)=>{
-    return currentNumber + Item.amount;
-  },0);
+  // let cartItemNumber = cartCtx.items.reduce((currentNumber,Item)=>{
+  //   return currentNumber + Item.amount;
+  // }, 0);
+
+  let data = 0
+  let cartItemNumber = cartCtx.items.map((item)=>{
+    return data += item.amount
+  })
 
 
 return(
