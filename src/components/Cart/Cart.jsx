@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext,useState } from 'react'
 import CartContext from '../Store/Cart-Context'
 import CheckOut from './CheckOut'
 
@@ -9,6 +9,7 @@ import CartItem from './CartItem'
 let Cart = (props)=>{
 
   let [showCheckout,setShowCheckout] = useState(false)
+  let [closeCheckout,setCloseCheckOut] = useState(false)
 
   let modalCloser=()=>{
     props.close(true)
@@ -22,9 +23,17 @@ let cartItemRemoveHandler = (id)=>{
 let cartItemAddHandler = (item)=>{
   cartCtx.addItem({...item, amount: 1})
 }
+let checkoutClose = (data) =>{
+  setCloseCheckOut(data) //true
+  setShowCheckout(false)
+  }
+
 let CheckoutHandler = ()=>{
 setShowCheckout(true)
+setCloseCheckOut(false) //false
+// either dont use it in condtion or put it to false as it will not update previous state of checkout and remove order button
 }
+
 
 let cartTotal = cartCtx.totalAmount.toFixed(2)
 let hasItems = cartCtx.items.length > 0
@@ -38,6 +47,13 @@ let itemsDisplay = cartCtx.items.map((item)=>{
   remove={cartItemRemoveHandler.bind(null,item.id)}/>
 })
 
+let modalActions = <>
+<button className={classes['button--alt']} onClick={modalCloser}> Close </button> 
+{/* According to Maxima onClick={props.onClose} */}
+{/* it will trigger thta function where we have put state as false */}
+{hasItems && <button className={classes.button} onClick={CheckoutHandler}> Order </button>}
+</>
+
 return(
     <>
     <Modal close={props.close}>
@@ -50,9 +66,8 @@ return(
        Total Amount: {cartTotal}
     </div>
     <div className={classes.actions}>
-    <button className={classes['button--alt']} onClick={modalCloser}> Close </button>
-    {hasItems && <button className={classes.button} onClick={CheckoutHandler}> Order </button>}
-    {showCheckout && <CheckOut/>}
+    {!closeCheckout && showCheckout && <CheckOut closeCheckOut={checkoutClose}/>}
+    {!showCheckout && modalActions}
     </div>
     </Modal>
     </>
