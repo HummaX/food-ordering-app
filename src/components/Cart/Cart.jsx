@@ -10,6 +10,8 @@ let Cart = (props)=>{
 
   let [showCheckout,setShowCheckout] = useState(false)
   let [closeCheckout,setCloseCheckOut] = useState(false)
+  let [isSubmiting,setIsSubmiting] = useState(false)
+  let [isSubmited,setIsSubmited] = useState(false)
 
   let modalCloser=()=>{
     props.close(true)
@@ -28,14 +30,42 @@ let checkoutClose = (data) =>{
   setShowCheckout(false)
   }
 
+  let submitMessageHandler =()=>{
+    setIsSubmited(false)
+    props.close(true)
+    setCloseCheckOut(true)
+  }
+
 let CheckoutHandler = ()=>{
 setShowCheckout(true)
 setCloseCheckOut(false) //false
 // either dont use it in condtion or put it to false as it will not update previous state of checkout and remove order button
 }
 
+let submitOrderHandler = async(userData)=>{
 
-let cartTotal = cartCtx.totalAmount.toFixed(2)
+// let itemDetails = cartCtx.items.map((items)=>{
+//   return({
+//     name:items.name,
+//     amount:items.amount
+//   })
+// })
+
+// let fullData = {customerDetails:userData,items:itemDetails}
+setIsSubmiting(true)
+fetch('https://react-api-project-e7084-default-rtdb.asia-southeast1.firebasedatabase.app/order.json',{
+  method: 'POST',
+  body:JSON.stringify({customerDetails:userData,order:cartCtx.items}),
+  headers:{
+    'Content-Type':'application/json'
+}
+})
+setIsSubmiting(false)
+setIsSubmited(true)
+cartCtx.clearCart()
+}
+
+let cartTotal = `$${cartCtx.totalAmount.toFixed(2)}`
 let hasItems = cartCtx.items.length > 0
 
 let itemsDisplay = cartCtx.items.map((item)=>{
@@ -48,11 +78,26 @@ let itemsDisplay = cartCtx.items.map((item)=>{
 })
 
 let modalActions = <>
-<button className={classes['button--alt']} onClick={modalCloser}> Close </button> 
+<button className={classes['button-alt']} onClick={modalCloser}> Close </button> 
 {/* According to Maxima onClick={props.onClose} */}
 {/* it will trigger thta function where we have put state as false */}
 {hasItems && <button className={classes.button} onClick={CheckoutHandler}> Order </button>}
 </>
+
+if(isSubmiting){
+  return(
+  <p> Data is submiting </p>
+  )
+}
+
+if(isSubmited){
+  return(
+  <Modal>
+    <p> Data is submited</p>
+    <button onClick={submitMessageHandler}> Close </button>
+  </Modal>
+  )
+}
 
 return(
     <>
@@ -66,7 +111,7 @@ return(
        Total Amount: {cartTotal}
     </div>
     <div className={classes.actions}>
-    {!closeCheckout && showCheckout && <CheckOut closeCheckOut={checkoutClose}/>}
+    {!closeCheckout && showCheckout && <CheckOut closeCheckOut={checkoutClose} userData={submitOrderHandler}/>}
     {!showCheckout && modalActions}
     </div>
     </Modal>
