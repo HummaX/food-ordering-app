@@ -12,7 +12,7 @@ let AvailableMeals = ()=>{
 
 useEffect(()=>{
   let mealListFetcher = async()=>{
-  let response = await fetch('https://react-api-project-e7084-default-rtdb.asia-southeast2.firebasedatabase.app/mealsList.json')
+  let response = await fetch('https://react-api-project-e7084-default-rtdb.asia-southeast1.firebasedatabase.app/mealsList.json')
   if(!response.ok){
     console.log('error response')
   }
@@ -33,7 +33,7 @@ useEffect(()=>{
   setLoading(false)
   }
   // since mealsListFetcher is a async function we need to use await by wraping it in try catch, but await wont work here
-  // as it will beark promis we can return a new fucntion where we can catch error
+  // as it will break promis we can return a new function where we can catch error
   mealListFetcher().catch((error)=>{
     setError(error.message)
     setLoading(false)

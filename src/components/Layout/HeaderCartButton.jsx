@@ -12,15 +12,17 @@ let HeaderCartButton =(props)=>{
 
   let cartCtx = useContext(CartContext)
   
-  // let cartItemNumber = cartCtx.items.reduce((currentNumber,Item)=>{
-  //   return currentNumber + Item.amount;
-  // }, 0);
+  let cartItemNumber = cartCtx.items.reduce((currentNumber,Item)=>{
+    return currentNumber + Item.amount;
+  }, 0);
 
-  let data = 0
-  let cartItemNumber = cartCtx.items.map((item)=>{
-    return data += item.amount
-  })
+// cannot use it here as when we add new product it will reset values and we need state to update it, and it'll return NaN
+  // let data = 0
+  // let cartItemNumber = cartCtx.items.map((item)=>{
+  //   return data += item.amount
+  // })
 
+let cartStringToNumber = +cartItemNumber
 
 return(
     <>
@@ -29,7 +31,7 @@ return(
             <CartIcon/>
         </span>
         <span> Your Cart </span>
-        <span className={classes.badge}> {cartItemNumber} </span>
+        <span className={classes.badge}> {cartStringToNumber} </span>
     </button>
     </>
 )

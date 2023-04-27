@@ -1,11 +1,14 @@
 import { useContext, useState } from 'react'
 import CartContext from '../Store/Cart-Context'
+import CheckOut from './CheckOut'
 
 import classes from './Cart.module.css'
 import Modal from '../UI/Modal'
 import CartItem from './CartItem'
 
 let Cart = (props)=>{
+
+  let [showCheckout,setShowCheckout] = useState(false)
 
   let modalCloser=()=>{
     props.close(true)
@@ -18,6 +21,9 @@ let cartItemRemoveHandler = (id)=>{
 }
 let cartItemAddHandler = (item)=>{
   cartCtx.addItem({...item, amount: 1})
+}
+let CheckoutHandler = ()=>{
+setShowCheckout(true)
 }
 
 let cartTotal = cartCtx.totalAmount.toFixed(2)
@@ -45,7 +51,8 @@ return(
     </div>
     <div className={classes.actions}>
     <button className={classes['button--alt']} onClick={modalCloser}> Close </button>
-    {hasItems && <button className={classes.button}> Order </button>}
+    {hasItems && <button className={classes.button} onClick={CheckoutHandler}> Order </button>}
+    {showCheckout && <CheckOut/>}
     </div>
     </Modal>
     </>
