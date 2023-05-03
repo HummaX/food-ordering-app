@@ -14,7 +14,10 @@ const cartReducer = (state, action) => {
       const existingCartItemIndex = state.items.findIndex(
         (item) => item.id === action.item.id
       );
+
+      // Here we found index of exiting item
       const existingCartItem = state.items[existingCartItemIndex];
+      // here accessd that item by index in state
       let updatedItems;
   
       if (existingCartItem) {
